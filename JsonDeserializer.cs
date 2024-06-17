@@ -10,7 +10,7 @@ namespace candidatetest
     /// <summary>
     /// Преобразует строку Json в словарь.
     /// </summary>
-    internal class JsonDeserializer
+    internal class JsonDeserializer : IDeserializable
     {
         public Dictionary<string, Dictionary<string, string>> Deserialize(string path)
         {

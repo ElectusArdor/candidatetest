@@ -4,7 +4,7 @@ using System.ComponentModel;
 
 namespace candidatetest
 {
-    internal class FileLoader
+    internal class FileLoader : ILoadable
     {
         private string path;
         public string Path { get { return path; } }

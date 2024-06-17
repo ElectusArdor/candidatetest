@@ -52,7 +52,7 @@
                       />
             <Button Grid.Column="2" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="25" Margin="40, 0, 40, 0"
                     Content="Экспорт в XML"
-                    Click="ExportToXML"
+                    Click="SaveResult"
                     />
             <Button x:Name="ConvertButton" Grid.Column="1" Content=">>" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Height="25"
                     Click="Convert"

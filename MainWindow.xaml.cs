@@ -18,15 +18,14 @@ namespace candidatetest
         {
             InitializeComponent();
             ProgramTitle = this.Title;
-            TypeInfosDict = DeserializeJson();
+            TypeInfosDict = Deserialize(new JsonDeserializer());
             Menu.Width = SystemParameters.MaximizedPrimaryScreenWidth;
         }
 
-        private Dictionary<string, Dictionary<string, string>> DeserializeJson()
+        private Dictionary<string, Dictionary<string, string>> Deserialize(IDeserializable deserializer)
         {
             string path = Environment.CurrentDirectory + "\\TypeInfos.json";
-            JsonDeserializer jHandler = new JsonDeserializer();
-            return jHandler.Deserialize(path);
+            return deserializer.Deserialize(path);
         }
 
         private void ShowInputData(BindingList<InputData> data)
@@ -34,10 +33,9 @@ namespace candidatetest
             MainTable.ItemsSource = DataIn;
         }
 
-        private void LoadFile(string path)
+        private void LoadFile(ILoadable loader)
         {
-            FileLoader fl = new FileLoader(path);
-            DataIn = fl.Load();
+            DataIn = loader.Load();
             if (DataIn == null)
             {
                 MessageBox.Show("Данные не загружены", MainWindow.ProgramTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -59,7 +57,7 @@ namespace candidatetest
 
             if (res == true)
             {
-                LoadFile(dialogWindow.FileName);
+                LoadFile(new FileLoader(dialogWindow.FileName));
                 ConvertButton.IsEnabled = true;
             }
         }
@@ -79,6 +77,10 @@ namespace candidatetest
             ResTable.ItemsSource = DataOut;
         }
 
+        private void ExportData(ISerializable serializer, string path)        {
+            serializer.Serilize(DataOut, path);
+        }
+
         private void SelectAll(object sender, RoutedEventArgs e)        {
             SetSelectionForAllItems(true);
         }
@@ -87,10 +89,11 @@ namespace candidatetest
             SetSelectionForAllItems(false);
         }
 
-        private void ExportToXML(object sender, RoutedEventArgs e)
+        private void SaveResult(object sender, RoutedEventArgs e)
         {
             string path = Environment.CurrentDirectory + "\\result.xml";
-            XmlSerializer.Serilize(DataOut, path);
+            XmlSerializer serializer = new XmlSerializer();
+            ExportData(serializer, path);
         }
 
         /// <summary>

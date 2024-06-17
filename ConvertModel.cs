@@ -8,7 +8,7 @@ namespace candidatetest
     /// <summary>
     /// Конвертирует входные данные, сохраняя их в хранилище исходящих данных, передаваемое по ссылке.
     /// </summary>
-    internal class ConvertModel
+    internal class ConvertModel : IConvertable
     {
         private Dictionary<string, int> types = new Dictionary<string, int>() { { "bool", 2 }, { "int", 4 }, { "double", 8 } };
 

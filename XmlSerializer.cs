@@ -3,9 +3,9 @@ using System.ComponentModel;
 
 namespace candidatetest
 {
-    internal static class XmlSerializer
+    internal class XmlSerializer : ISerializable
     {
-        public static void Serilize(BindingList<OutputData> dataOut, string path)
+        public void Serilize(BindingList<OutputData> dataOut, string path)
         {
             XmlDocument doc = new XmlDocument();
             XmlNode rootNode = doc.CreateElement("root");
